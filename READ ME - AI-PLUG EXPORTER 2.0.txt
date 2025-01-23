@@ -1,0 +1,76 @@
+Here's the English translation for your README file:
+
+---
+
+# AI-PLUG EXPORTER 2.0 (Beta)
+
+## Description
+
+**AI-PLUG EXPORTER 2.0** is a plugin for Adobe Illustrator that enables easy and precise export of selected artboards as individual PDF or AI files. It simplifies working with documents containing multiple artboards, providing greater control and efficiency.
+
+## Installation
+
+1. **Download** the plugin from [GitHub](insert_link_here) or [external link](insert_link_here) to any folder on your PC.
+
+## Usage
+
+1. **Open** a project with multiple artboards (AI or PDF) in Adobe Illustrator.
+2. **Run the plugin:**
+   - Press the shortcut **Ctrl + F12**.
+   - Point to the file AI-PLUG EXPORTER 2.0.js on your computer.
+3. **Select** the artboards you want to export.
+4. **Configure** export options:
+   - Choose the export format (PDF or AI).
+   - Check the option **Open destination folder** before or after export, if desired.
+5. Click **Export** to start the process.
+
+## Features
+
+- **Precise export** of selected artboards as individual files.
+- **User-friendly interface** for easy configuration.
+- **Shortcut key** for quick access.
+- **Additional options**, such as opening the destination folder.
+
+## Requirements
+
+- Adobe Illustrator CS6 or later.
+- Windows or macOS operating system.
+
+## Notes
+
+- **Beta:** This version is in beta. It may contain bugs or issues. Please be patient and report any problems.
+- **Customization:** Feel free to modify the script and tailor it to your needs.
+
+## Support
+
+If you encounter any problems or have questions:
+
+- **Report an issue** on [GitHub Issues](insert_issue_tracker_link_here).
+- **Contact us** directly via [email](mailto:your_email@example.com).
+
+## Contribution
+
+Want to help develop the plugin?
+
+- **Fork** the repository on GitHub.
+- **Make changes** or add new features.
+- **Send a pull request**, and we'll review your suggestions.
+
+## License
+
+This project is licensed under the **MIT License**. Detailed information can be found in the [LICENSE](insert_license_link_here) file.
+
+---
+
+**Thank you for using AI-PLUG EXPORTER 2.0!**
+
+We welcome your feedback and ideas for the plugin's development.
+
+---
+
+Add contact:
+[grafik_designer_contact@proton.me](mailto:grafik_designer_contact@proton.me)
+
+---
+
+Is there anything else you'd like to add or adjust?
