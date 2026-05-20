@@ -265,9 +265,10 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       withMonitoring(() => {
         getKeywords(async (KEYWORDS) => {
           const currentIds = msg.ids || [];
-          chrome.storage.local.get({ lastSeenIds: [] }, (store) => {
+          chrome.storage.local.get({ lastSeenIds: [], ignoredJobs: [] }, (store) => {
             const lastSeenIds = store.lastSeenIds || [];
-            const newIds = currentIds.filter(id => !lastSeenIds.includes(id));
+            const ignoredJobs = store.ignoredJobs || [];
+            const newIds = currentIds.filter(id => !lastSeenIds.includes(id) && !ignoredJobs.includes(id));
 
             if (newIds.length === 0) {
               updateLiveStatus(`[LinkedIn] Karta #${tab.index} ➔ Skan pasywny (${currentIds.length} id w cache).`);
@@ -313,9 +314,10 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       withMonitoring(() => {
         getKeywords((KEYWORDS) => {
           const rawCards = msg.cards || [];
-          chrome.storage.local.get({ lastSeenIndeedIds: [] }, (store) => {
+          chrome.storage.local.get({ lastSeenIndeedIds: [], ignoredJobs: [] }, (store) => {
             const lastSeenIndeedIds = store.lastSeenIndeedIds || [];
-            const newCards = rawCards.filter(card => !lastSeenIndeedIds.includes(card.id));
+            const ignoredJobs = store.ignoredJobs || [];
+            const newCards = rawCards.filter(card => !lastSeenIndeedIds.includes(card.id) && !ignoredJobs.includes(card.id));
 
             if (newCards.length === 0) {
               updateLiveStatus(`[Indeed] Karta #${tab.index} ➔ Skan pasywny (${rawCards.length} id w cache).`);

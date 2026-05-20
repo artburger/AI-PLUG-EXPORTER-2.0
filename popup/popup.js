@@ -71,9 +71,29 @@ function renderHistory(items) {
       }
     }
 
+    const actionsContainer = document.createElement("div");
+    actionsContainer.className = "history-actions";
+    actionsContainer.appendChild(linkEl);
+
+    const ignoreEl = document.createElement("a");
+    ignoreEl.className = "history-ignore";
+    ignoreEl.textContent = "Ignoruj";
+    ignoreEl.href = "#";
+    ignoreEl.onclick = (e) => {
+      e.preventDefault();
+      chrome.storage.local.get({ matchedHistory: [], ignoredJobs: [] }, (store) => {
+        const newHistory = store.matchedHistory.filter(h => h.fullId !== item.fullId);
+        const newIgnored = [...store.ignoredJobs, item.id];
+        chrome.storage.local.set({ matchedHistory: newHistory, ignoredJobs: newIgnored }, () => {
+          renderHistory(newHistory);
+        });
+      });
+    };
+    actionsContainer.appendChild(ignoreEl);
+
     container.appendChild(titleEl);
     container.appendChild(snippetEl);
-    container.appendChild(linkEl);
+    container.appendChild(actionsContainer);
     container.appendChild(dateEl);
 
     historyDiv.appendChild(container);
