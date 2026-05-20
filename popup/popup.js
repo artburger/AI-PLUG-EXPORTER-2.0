@@ -86,7 +86,7 @@ function renderHistory(items) {
 chrome.storage.sync.get(
   {
     monitoringEnabled: false,
-    keywords: "designer, design, packaging, artwork, prepress, dtp, production, fmcg, brand, operator"
+    keywords: "packaging designer, packaging design, production artwork, prepress, dtp, dieline, print production, pdf/x, extendscript, fmcg, color management, colour management"
   },
   (data) => {
     updateButton(data.monitoringEnabled);

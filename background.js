@@ -88,7 +88,7 @@ function playAlarmOnAllPinnedTabs() {
 
 function getKeywords(callback) {
   chrome.storage.sync.get(
-    { keywords: "designer, design, packaging, artwork, prepress, dtp, production, fmcg, brand, operator" },
+    { keywords: "packaging designer, packaging design, production artwork, prepress, dtp, dieline, print production, pdf/x, extendscript, fmcg, color management, colour management" },
     (data) => {
       const raw = data.keywords || "";
       const list = raw.split(",").map(k => k.trim()).filter(k => k.length > 0);
@@ -144,8 +144,11 @@ async function fetchLinkedInDetails(jobId) {
 
 function matchesKeywords(text, keywords) {
   if (!text) return false;
-  const lower = text.toLowerCase();
-  return keywords.some(kw => lower.includes(kw.toLowerCase()));
+  return keywords.some(kw => {
+    const escapedKw = kw.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    const regex = new RegExp(`(^|\\b|\\W)${escapedKw}(\\b|\\W|$)`, "i");
+    return regex.test(text);
+  });
 }
 
 // NOWOŚĆ: Generowanie dymków Windows 11 zawierających dokładny adres URL w opisie
