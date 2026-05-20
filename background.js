@@ -88,7 +88,7 @@ function playAlarmOnAllPinnedTabs() {
 
 function getKeywords(callback) {
   chrome.storage.sync.get(
-    { keywords: "packaging designer, packaging design, production artwork, prepress, dtp, dieline, print production, pdf/x, extendscript, fmcg, color management, colour management" },
+    { keywords: "packaging, prepress, dtp, dieline, print, fmcg, extendscript, color management, illustrator" },
     (data) => {
       const raw = data.keywords || "";
       const list = raw.split(",").map(k => k.trim()).filter(k => k.length > 0);
@@ -146,7 +146,7 @@ function matchesKeywords(text, keywords) {
   if (!text) return false;
   return keywords.some(kw => {
     const escapedKw = kw.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-    const regex = new RegExp(`(^|\\b|\\W)${escapedKw}(\\b|\\W|$)`, "i");
+    const regex = new RegExp(escapedKw, "i");
     return regex.test(text);
   });
 }
