@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "Job Monitor LinkedIn & Indeed",
+  "version": "1.0",
+  "description": "Monitoruje oferty pracy na LinkedIn Jobs oraz Indeed, wykrywając nowe ogłoszenia wyłącznie w przypiętych kartach.",
+
+  "permissions": [
+    "tabs",
+    "scripting",
+    "storage",
+    "notifications"
+  ],
+
+  "host_permissions": [
+    "https://www.linkedin.com/*",
+    "https://*.indeed.com/*"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "action": {
+    "default_title": "Otwórz Job Monitor LinkedIn & Indeed",
+    "default_popup": "popup/popup.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.linkedin.com/jobs/*"],
+      "js": ["content/linkedin.js"]
+    },
+    {
+      "matches": ["https://*.indeed.com/jobs*"],
+      "js": ["content/indeed.js"]
+    }
+  ]
+}
