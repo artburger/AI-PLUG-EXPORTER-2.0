@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Job Monitor Cluster</title>
+  <style>
+    :root {
+      --primary-color: #0a66c2;
+      --primary-hover: #004182;
+      --success-color: #2b8a3e;
+      --danger-color: #fa5252;
+      --bg-color: #f8f9fa;
+      --border-color: #e9ecef;
+      --text-color: #333333;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 12px;
+      min-width: 340px;
+      background-color: #ffffff;
+      color: var(--text-color);
+      box-sizing: border-box;
+    }
+
+    /* NOWOŚĆ: Poziomy pasek narzędziowy na samej górze */
+    .top-toolbar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+      width: 100%;
+    }
+
+    .btn-action {
+      flex: 1;
+      padding: 8px 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      border-radius: 5px;
+      border: 1px solid #ced4da;
+      transition: all 0.15s ease;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    #toggle {
+      background-color: #f1f3f5;
+      color: #495057;
+    }
+
+    #clearCache {
+      background-color: #f3f0ff;
+      border-color: #d0bfff;
+      color: #7048e8;
+    }
+    #clearCache:hover {
+      background-color: #e5dbff;
+    }
+
+    #clearHistory {
+      background-color: #fff5f5;
+      border-color: #ffc9c9;
+      color: var(--danger-color);
+    }
+    #clearHistory:hover {
+      background-color: #ffe3e3;
+    }
+
+    label {
+      font-size: 10px;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 5px;
+      color: #495057;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 60px;
+      resize: vertical;
+      font-size: 12px;
+      padding: 6px;
+      box-sizing: border-box;
+      margin-bottom: 6px;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(10, 102, 194, 0.12);
+    }
+
+    #saveKeywords {
+      width: 100%;
+      padding: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+      background-color: var(--primary-color);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-bottom: 12px;
+    }
+    #saveKeywords:hover {
+      background-color: var(--primary-hover);
+    }
+
+    #status {
+      font-size: 11px;
+      color: var(--success-color);
+      margin-top: -8px;
+      margin-bottom: 8px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 10px;
+      font-weight: 700;
+      margin: 12px 0 6px;
+      padding-top: 10px;
+      border-top: 1px solid #f1f3f5;
+      color: #495057;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #history {
+      max-height: 180px;
+      overflow-y: auto;
+      border: 1px solid #e9ecef;
+      border-radius: 5px;
+      padding: 8px;
+      font-size: 11px;
+      background-color: #fafbfc;
+      margin-bottom: 10px;
+    }
+
+    .history-item {
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #edf2f7;
+    }
+    .history-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .history-title {
+      font-weight: 600;
+      color: #1a202c;
+      margin-bottom: 2px;
+      line-height: 1.3;
+    }
+
+    .history-snippet {
+      color: #4a5568;
+      margin-bottom: 4px;
+      font-size: 10px;
+      line-height: 1.35;
+    }
+
+    .history-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 600;
+      display: inline-block;
+    }
+    .history-link:hover {
+      text-decoration: underline;
+    }
+
+    .history-date {
+      color: var(--success-color);
+      font-size: 9px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    #live-status {
+      background-color: var(--bg-color);
+      padding: 6px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      color: #495057;
+      word-break: break-all;
+      min-height: 20px;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-toolbar">
+    <button id="toggle" class="btn-action">OFF</button>
+    <button id="clearCache" class="btn-action">RESET</button>
+    <button id="clearHistory" class="btn-action">CLEAN</button>
+  </div>
+
+  <label for="keywords">Słowa kluczowe (po przecinku):</label>
+  <textarea id="keywords" placeholder="np. packaging, dtp, designer"></textarea>
+  <button id="saveKeywords">Zapisz słowa kluczowe</button>
+  <div id="status"></div>
+
+  <h2>Historia ofert</h2>
+  <div id="history">Brak zapisanych ofert.</div>
+
+  <h2>Status pracy (Live)</h2>
+  <div id="live-status">Oczekiwanie na akcję...</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
